@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Yangself549_
+    url: jdbc:mysql://yangself.cn:3306/leigod_utils?useUnicode=true&characterEncoding=utf8&useSSL=false&&roundRobinLoadBalance=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: root
+
+server:
+  port: 10180
