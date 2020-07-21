@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雷神控制台</title>
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+
+    <div id="login" style="text-align: center;">
+        <el-row style="margin: 10px;"> 
+            <el-col :span="2" style="line-height: 40px;text-align: right;">手机号：</el-col>
+            <el-col :span="5"><el-input v-model="username" name="username" placeholder="请输入登录手机号"></el-input></el-col>
+        </el-row>
+        <el-row style="margin: 10px;">
+            <el-col :span="2" style="line-height: 40px;text-align: right;">密码：</el-col>
+            <el-col :span="5"><el-input clearable placeholder="请输入密码" v-model="password" show-password></el-input></el-col>
+        </el-row>
+        <el-row style="margin: 10px;">
+            <el-col :span="7"><el-button type="primary" v-on:click="toLogin">登录</el-button></el-col>
+        </el-row>
+        
+    </div>
+    
+
+    <script>
+        var app = new Vue({
+            el: '#login',
+            data: {
+                username: '',
+                password: ''
+            },
+            methods:{
+                toLogin(){
+                    if(this.username !== '' && this.password !== ''){//用户名和密码不为空
+                        console.log("hello world!")
+                        console.log(this.username)
+                        console.log(this.password)
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
