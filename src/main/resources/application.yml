@@ -6,7 +6,7 @@ spring:
     username: root
     hikari:
       connection-timeout: 10000
-      max-lifetime: 1800000
+      max-lifetime: 18000000
       minimum-idle: 3
       connection-test-query: SELECT 1
       maximum-pool-size: 10
