@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yangself.leigodcontrol.mapper.LeigodMapper">
+
+    <resultMap type="cn.yangself.leigodcontrol.entity.User" id="resultUser">
+        <result property="userId"    column="user_id"    />
+        <result property="username"    column="username"    />
+        <result property="password"    column="password"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="token"    column="token"    />
+        <result property="expiryTime"    column="expiry_time"    />
+    </resultMap>
+
+    <insert id="addUser" parameterType="cn.yangself.leigodcontrol.entity.User" >
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null  ">user_id,</if>
+            <if test="username != null  and username != ''  ">username,</if>
+            <if test="password != null  and password != ''  ">password,</if>
+            <if test="nickname != null  and nickname != ''  ">nickname,</if>
+            <if test="token != null  and token != ''  ">token,</if>
+            <if test="expiryTime != null">expiry_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null  ">#{userId},</if>
+            <if test="username != null  and username != ''  ">#{username},</if>
+            <if test="password != null  and password != ''  ">#{password},</if>
+            <if test="nickname != null  and nickname != ''  ">#{nickname},</if>
+            <if test="token != null  and token != ''  ">#{token},</if>
+            <if test="expiryTime != null">#{expiryTime},</if>
+        </trim>
+    </insert>
+
+    <insert id="updateUser" parameterType="cn.yangself.leigodcontrol.entity.User" >
+        update users
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null  and username != ''  ">username = #{username},</if>
+            <if test="password != null  and password != ''  ">password = #{password},</if>
+            <if test="nickname != null  and nickname != ''  ">nickname = #{nickname},</if>
+            <if test="token != null  and token != ''  ">token = #{token},</if>
+            <if test="expiryTime != null">expiry_time = #{expiryTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </insert>
+
+    <select id="selectUserByUsername" parameterType="string" resultMap="resultUser">
+        select * from users where username = #{username}
+    </select>
+
+    <select id="selectAllUsers" resultMap="resultUser">
+        select * from users
+    </select>
+
+</mapper>

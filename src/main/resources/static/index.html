@@ -11,44 +11,84 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        * {
+            font-family: "PingFang SC";
+        }
+
+        .title {
+            width: 95%;
+            background-color: #409EFF;
+            border-radius: 7px;
+            color: #ffffff;
+            font-size: 25px;
+            height: 150px;
+            position: fixed;
+            top: 10px;
+            left: 2.5%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+        }
+
+        .list {
+            background-color: pink;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div id="login" style="text-align: center;">
-        <el-row style="margin: 10px;"> 
-            <el-col :span="2" style="line-height: 40px;text-align: right;">手机号：</el-col>
-            <el-col :span="5"><el-input v-model="username" name="username" placeholder="请输入登录手机号"></el-input></el-col>
-        </el-row>
-        <el-row style="margin: 10px;">
-            <el-col :span="2" style="line-height: 40px;text-align: right;">密码：</el-col>
-            <el-col :span="5"><el-input clearable placeholder="请输入密码" v-model="password" show-password></el-input></el-col>
-        </el-row>
-        <el-row style="margin: 10px;">
-            <el-col :span="7"><el-button type="primary" v-on:click="toLogin">登录</el-button></el-col>
-        </el-row>
-        
-    </div>
-    
+<div id="top" class="title">
+    <span style="line-height: 150px">xxx</span>
+</div>
 
-    <script>
-        var app = new Vue({
-            el: '#login',
-            data: {
-                username: '',
-                password: ''
-            },
-            methods:{
-                toLogin(){
-                    if(this.username !== '' && this.password !== ''){//用户名和密码不为空
-                        console.log("hello world!")
-                        console.log(this.username)
-                        console.log(this.password)
-                    }
+<div id="list" class="list">
+    <el-row>
+        <el-col></el-col>
+    </el-row>
+</div>
+<div id="login" style="text-align: center;display: none" class="all">
+    <el-row style="margin: 10px;">
+        <el-col :span="2" style="line-height: 40px;text-align: right;">手机号：</el-col>
+        <el-col :span="5">
+            <el-input v-model="username" name="username" placeholder="请输入登录手机号"></el-input>
+        </el-col>
+    </el-row>
+    <el-row style="margin: 10px;">
+        <el-col :span="2" style="line-height: 40px;text-align: right;">密码：</el-col>
+        <el-col :span="5">
+            <el-input clearable placeholder="请输入密码" v-model="password" show-password></el-input>
+        </el-col>
+    </el-row>
+    <el-row style="margin: 10px;">
+        <el-col :span="7">
+            <el-button type="primary" v-on:click="toLogin">登录</el-button>
+        </el-col>
+    </el-row>
+</div>
+
+
+<script>
+    var login = new Vue({
+        el: '#login',
+        data: {
+            username: '',
+            password: ''
+        },
+        methods: {
+            toLogin() {
+                if (this.username !== '' && this.password !== '') {//用户名和密码不为空
+                    console.log("hello world!")
+                    console.log(this.username)
+                    console.log(this.password)
                 }
             }
-        })
-    </script>
+        }
+    })
+
+    var list = new Vue({
+        el: '#list'
+    })
+</script>
 </body>
 
 </html>

@@ -7,3 +7,6 @@ spring:
 
 server:
   port: 10180
+
+leigod:
+  login: https://webapi.leigod.com/api/auth/login
