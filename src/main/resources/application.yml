@@ -10,3 +10,7 @@ server:
 
 leigod:
   login: https://webapi.leigod.com/api/auth/login
+  pause: https://webapi.leigod.com/api/user/pause
+  recover: https://webapi.leigod.com/api/user/recover
+  info: https://webapi.leigod.com/api/user/info
+  logout: https://webapi.leigod.com/api/auth/logout

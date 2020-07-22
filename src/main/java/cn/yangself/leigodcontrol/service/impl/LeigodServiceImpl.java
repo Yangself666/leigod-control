@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import sun.nio.cs.ext.COMPOUND_TEXT_Decoder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +37,12 @@ public class LeigodServiceImpl implements ILeigodService {
 
     @Value("${leigod.login}")
     private String loginApi;
+
+    @Value("${leigod.pause}")
+    private String pauseApi;
+
+    @Value("${leigod.info}")
+    private String infoApi;
 
 
     /**
@@ -136,14 +143,26 @@ public class LeigodServiceImpl implements ILeigodService {
      */
     @Scheduled(cron="0 5/20 3 * * ?")
     private void pauseAlert(){
+        log.info("============ 检查所有账号token ============");
+        tokenAlert();
         log.info("============ 开始暂停全部账号 ============");
         //获取所有库中的user
         List<User> users = leigodMapper.selectAllUsers();
-        for (:
-             ) {
-            
+        for (User user : users) {//遍历用户
+            if (user.getToken() != null){
+                try {
+                //进行暂停
+                Map<String,Object> qMap = new HashMap<>();
+                qMap.put("account_token", user.getToken());
+                qMap.put("lang", "zh_CN");
+                //发出暂停请求
+                Map map = netRequest.sendPost(pauseApi, qMap);
+                }catch (Exception e){
+                    log.info("暂停异常！");
+                    e.printStackTrace();
+                }
+            }
         }
-
     }
 
     /**
@@ -152,6 +171,24 @@ public class LeigodServiceImpl implements ILeigodService {
     @Scheduled(cron="0 0 * * * ?")
     private void tokenAlert(){
         //获取所有库中的user
+        List<User> users = leigodMapper.selectAllUsers();
+        //获取用户信息，如果能获取说明token可以用，不能，重新获取
+        for (User user : users) {//遍历用户
+            if (user.getToken() != null) {//不等于null，请求详情
+                Map<String,Object> qMap = new HashMap<>();
+                qMap.put("account_token", user.getToken());
+                qMap.put("lang", "zh_CN");
+                //发出查询信息请求
+                Map map = netRequest.sendPost(infoApi, qMap);
+                if(map.get("code") != null && map.get("code").toString().equals("400006")){
+                    //说明账号未登陆，获取token
+                    login(user.getUsername(),user.getPassword());
+                }
+            }else{//等于空，直接获取token
+                login(user.getUsername(),user.getPassword());
+            }
+        }
+
     }
 
 
