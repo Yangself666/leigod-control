@@ -1,4 +1,4 @@
-POST http://localhost:10180/login
+POST http://localhost:10180/leigod/login
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ POST https://webapi.leigod.com/api/user/info
 Content-Type: application/json
 
 {
-  "account_token": "2fzoMXUd3QAUyvkXH7yyBqKVJozyLgmtHsF0ZrmhPLVUCxo4Bzb92Vdsnm0GLoiX"
+  "account_token": "5q1MW0kyrnbw3N3VZwWfw6pVNkXiyVzYBh3KIXXXh8sVvB3kHt7KrKQSaRxtPok8",
   "lang": "zh_CN"
 }
 
@@ -20,7 +20,7 @@ POST https://webapi.leigod.com/api/user/pause
 Content-Type: application/json
 
 {
-  "account_token": "2fzoMXUd3QAUyvkXH7yyBqKVJozyLgmtHsF0ZrmhPLVUCxo4Bzb92Vdsnm0GLoiX"
+  "account_token": "5q1MW0kyrnbw3N3VZwWfw6pVNkXiyVzYBh3KIXXXh8sVvB3kHt7KrKQSaRxtPok8",
   "lang": "zh_CN"
 }
 
@@ -29,7 +29,7 @@ POST https://webapi.leigod.com/api/user/recover
 Content-Type: application/json
 
 {
-  "account_token": "2fzoMXUd3QAUyvkXH7yyBqKVJozyLgmtHsF0ZrmhPLVUCxo4Bzb92Vdsnm0GLoiX"
+  "account_token": "5q1MW0kyrnbw3N3VZwWfw6pVNkXiyVzYBh3KIXXXh8sVvB3kHt7KrKQSaRxtPok8",
   "lang": "zh_CN"
 }
 
@@ -38,6 +38,6 @@ POST https://webapi.leigod.com/api/auth/logout
 Content-Type: application/json
 
 {
-  "account_token": "2fzoMXUd3QAUyvkXH7yyBqKVJozyLgmtHsF0ZrmhPLVUCxo4Bzb92Vdsnm0GLoiX"
+  "account_token": "5q1MW0kyrnbw3N3VZwWfw6pVNkXiyVzYBh3KIXXXh8sVvB3kHt7KrKQSaRxtPok8",
   "lang": "zh_CN"
 }

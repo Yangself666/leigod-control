@@ -11,13 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import sun.nio.cs.ext.COMPOUND_TEXT_Decoder;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -135,6 +131,51 @@ public class LeigodServiceImpl implements ILeigodService {
             e.printStackTrace();
         }
 
+        return resultMap;
+    }
+
+    /**
+     * 获取所有的用户信息
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> userList() {
+        Map<String,Object> resultMap = new HashMap<>();
+        List<Map<String,Object>> usersList = new ArrayList<>();
+        //获取所有的用户信息
+        //获取所有库中的user
+        try {
+            List<User> users = leigodMapper.selectAllUsers();
+            if (users != null) {
+                //使用user里面的token进行信息的查询
+                for (User user : users) {//遍历用户
+                    if (user.getToken() != null) {
+                        try {
+                            //进行获取个人信息请求
+                            Map<String, Object> qMap = new HashMap<>();
+                            qMap.put("account_token", user.getToken());
+                            qMap.put("lang", "zh_CN");
+                            //发出请求
+                            Map resMap = netRequest.sendPost(infoApi, qMap);
+                            usersList.add(resMap);
+                        } catch (Exception e) {
+                            log.info("获取个人信息异常！");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            resultMap.put("code",200);
+            resultMap.put("msg","请求成功！");
+            resultMap.put("result",usersList);
+        }catch (Exception e){
+            resultMap.put("code",500);
+            resultMap.put("msg","服务器发生错误！");
+            resultMap.put("errorMsg",e.getMessage());
+            e.printStackTrace();
+        }
         return resultMap;
     }
 

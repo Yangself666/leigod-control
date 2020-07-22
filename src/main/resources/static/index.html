@@ -11,12 +11,18 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
         * {
-            font-family: "PingFang SC";
+            font-family: "PingFang SC", "Helvetica Neue";
+        }
+
+        body {
+            background-color: #f9f9f9;
         }
 
         .title {
+            z-index: 1;
             width: 95%;
             background-color: #409EFF;
             border-radius: 7px;
@@ -24,13 +30,62 @@
             font-size: 25px;
             height: 150px;
             position: fixed;
-            top: 10px;
+            top: 5px;
             left: 2.5%;
             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
         }
 
         .list {
-            background-color: pink;
+            margin-top: 180px;
+            width: 95%;
+            margin-left: 2.5%;
+        }
+
+        .user {
+            margin: 10px 0 20px 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-family: "Helvetica Neue", "Hiragino Sans GB";
+        }
+
+        .statusPause {
+            font-size: 12px;
+            background-color: #67C23A;
+            border-radius: 7px;
+            padding: 0 5px;
+            color: #ffffff;
+        }
+        .statusOnline {
+            font-size: 12px;
+            background-color: #F56C6C;
+            border-radius: 7px;
+            padding: 0 5px;
+            color: #ffffff;
+        }
+
+        .telNum{
+            color: #C0C4CC;
+            font-size: 12px;
+            margin-right: 20px;
+        }
+        .left{
+            flex: 1;
+        }
+        .right{
+            flex: 1;
+            position: relative;
+        }
+
+        .time{
+            text-align: right;
+        }
+        .button{
+            text-align: right;
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
         }
     </style>
 </head>
@@ -38,13 +93,46 @@
 <body>
 
 <div id="top" class="title">
-    <span style="line-height: 150px">xxx</span>
+    <span style="line-height: 150px;margin-left: 20px">雷神控制台</span>
 </div>
 
+
 <div id="list" class="list">
-    <el-row>
-        <el-col></el-col>
-    </el-row>
+
+    <div v-for="(item,index) in usersList" class="user">
+        <el-row style="display: flex">
+            <div class="left">
+                <div>
+                    <span style="font-size: 20px ;margin-right: 20px;color: #303133">{{item.data.nickname}}</span>
+                    <span v-if="item.data.pause_status_id == 1" class="statusPause">{{item.data.pause_status}}</span>
+                    <span v-else class="statusOnline">{{item.data.pause_status}}</span>
+                </div>
+                <div>
+                    <span class="telNum">{{item.data.mobile}}</span>
+                </div>
+                <div style="margin-top: 10px">
+                    <span style="color: #909399;font-size: 12px;">上次暂停时间：<br>{{item.data.last_pause_time}}</span>
+                </div>
+            </div>
+            <div class="right">
+                <div style="font-family: 'Microsoft YaHei';color: #909399;margin-bottom: 10px;text-align: right">
+                    剩余时长
+                </div>
+                <div class="time">
+                    <span style="color: #E6A23C;font-size: 22px;">{{item.data.expiry_time}}</span>
+                </div>
+                <div class="button">
+                    <el-button type="success" icon="el-icon-video-pause" circle size="mini" ></el-button>
+                    <el-button type="danger" icon="el-icon-delete" circle size="mini" ></el-button>
+                </div>
+
+            </div>
+
+
+
+
+        </el-row>
+    </div>
 </div>
 <div id="login" style="text-align: center;display: none" class="all">
     <el-row style="margin: 10px;">
@@ -86,8 +174,22 @@
     })
 
     var list = new Vue({
-        el: '#list'
+        el: '#list',
+        data: {
+            usersList: []
+        }
     })
+
+    axios.post('http://127.0.0.1:10180/leigod/userList')
+        .then(function (response) {
+            console.log("获取到的列表",response.data.result)
+            list.$data.usersList = response.data.result
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
 </script>
 </body>
 

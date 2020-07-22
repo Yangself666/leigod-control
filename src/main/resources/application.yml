@@ -4,6 +4,13 @@ spring:
     password: Yangself549_
     url: jdbc:mysql://yangself.cn:3306/leigod_utils?useUnicode=true&characterEncoding=utf8&useSSL=false&&roundRobinLoadBalance=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     username: root
+    hikari:
+      connection-timeout: 10000
+      max-lifetime: 1800000
+      minimum-idle: 3
+      connection-test-query: SELECT 1
+      maximum-pool-size: 10
+
 
 server:
   port: 10180

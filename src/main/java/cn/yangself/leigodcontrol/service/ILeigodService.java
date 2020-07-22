@@ -12,4 +12,10 @@ public interface ILeigodService {
      */
     public Map<String,Object> login(String username,String password);
 
+    /**
+     * 获取所有的用户信息
+     * @return
+     */
+    public Map<String,Object> userList();
+
 }
